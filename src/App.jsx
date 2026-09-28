@@ -1,28 +1,40 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import InteractiveWidget from './components/InteractiveWidget';
-import Timeline from './components/Timeline';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { ThemeProvider } from './context/ThemeContext';
+import { ScrollProgress } from './components/core/scroll-progress';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { Projects } from './components/Projects';
+import { FloatingDock } from './components/FloatingDock';
+import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500/25 selection:text-cyan-200">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <InteractiveWidget />
-        <Timeline />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-main)] selection:bg-[#3a31d8]/30 selection:text-[#ebe9fc] transition-colors relative">
+        {/* Spring-animated Reading / Page Scroll Progress Bar */}
+        <ScrollProgress
+          className="bg-gradient-to-r from-[#3a31d8] via-[#0600c2] to-cyan-400"
+          springOptions={{
+            stiffness: 280,
+            damping: 18,
+            mass: 0.3,
+          }}
+        />
+
+        <Navbar />
+
+        <main className="space-y-4">
+          <Hero />
+          <About />
+          <Projects />
+        </main>
+
+        <Footer />
+
+        {/* macOS Floating Dock */}
+        <FloatingDock />
+      </div>
+    </ThemeProvider>
   );
 }

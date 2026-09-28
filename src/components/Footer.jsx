@@ -1,39 +1,37 @@
 import React from 'react';
-import { ArrowUp, Heart, BrainCircuit } from 'lucide-react';
-import { personalInfo } from '../data/portfolioData';
+import { ArrowUp } from 'lucide-react';
+import { GithubIcon } from './Icons';
 
-export default function Footer() {
+export function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="py-12 border-t border-slate-900 bg-slate-950 text-slate-400 text-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-white">
-              <BrainCircuit className="w-3.5 h-3.5" />
-            </div>
-            <span className="font-semibold text-white">
-              {personalInfo.name}
-            </span>
-            <span className="text-slate-500 text-xs">
-              © {new Date().getFullYear()} All rights reserved.
-            </span>
-          </div>
+    <footer className="pt-12 pb-28 border-t border-[var(--border-subtle)] bg-[var(--bg-primary)] text-xs text-[var(--text-muted)] transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-[var(--text-main)]">Kavya Gupta</span>
+          <span>•</span>
+          <span>© {new Date().getFullYear()}</span>
+        </div>
 
-          <div className="text-xs text-slate-500 flex items-center gap-1">
-            Built with React, Vite & Tailwind CSS
-          </div>
-
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/JustKay1029"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[var(--text-main)] transition-colors flex items-center gap-1.5"
+          >
+            <GithubIcon className="w-3.5 h-3.5" />
+            <span>GitHub</span>
+          </a>
           <button
             onClick={scrollToTop}
-            className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 border border-slate-800 transition-colors"
-            title="Back to Top"
-            aria-label="Back to Top"
+            className="hover:text-[var(--text-main)] transition-colors flex items-center gap-1"
           >
-            <ArrowUp className="w-4 h-4" />
+            <span>Back to top</span>
+            <ArrowUp className="w-3 h-3" />
           </button>
         </div>
       </div>
