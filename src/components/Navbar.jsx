@@ -12,11 +12,11 @@ export function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand / Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#3a31d8] to-[#0600c2] flex items-center justify-center text-white font-bold text-sm shadow-md shadow-[#3a31d8]/30 group-hover:scale-105 transition-transform">
+          <div className="w-8 h-8 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform">
             K
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-tight text-[var(--text-main)] group-hover:text-[#3a31d8] transition-colors">
+          <div className="flex flex-col text-left">
+            <span className="text-sm font-bold tracking-tight text-[var(--text-main)] transition-colors">
               Kavya Gupta
             </span>
             <span className="text-[10px] font-mono text-[var(--text-muted)]">
@@ -29,13 +29,13 @@ export function Navbar() {
         <nav className="hidden md:flex items-center gap-6 text-xs sm:text-sm font-medium text-[var(--text-muted)]">
           <a
             href="#about"
-            className="hover:text-[var(--text-main)] hover:text-[#3a31d8] transition-colors"
+            className="hover:text-[var(--text-main)] transition-colors"
           >
             About
           </a>
           <a
             href="#projects"
-            className="hover:text-[var(--text-main)] hover:text-[#3a31d8] transition-colors"
+            className="hover:text-[var(--text-main)] transition-colors"
           >
             Projects
           </a>
@@ -43,7 +43,7 @@ export function Navbar() {
             href="https://github.com/JustKay1029"
             target="_blank"
             rel="noreferrer"
-            className="hover:text-[var(--text-main)] hover:text-[#3a31d8] transition-colors"
+            className="hover:text-[var(--text-main)] transition-colors"
           >
             GitHub
           </a>
@@ -55,14 +55,14 @@ export function Navbar() {
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[var(--text-muted)] hover:text-[var(--text-main)] hover:border-[#3a31d8]/40 transition-colors"
+            className="p-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[var(--text-muted)] hover:text-[var(--text-main)] hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400" />
+              <Sun className="w-4 h-4 text-zinc-200" />
             ) : (
-              <Moon className="w-4 h-4 text-[#3a31d8]" />
+              <Moon className="w-4 h-4 text-zinc-800" />
             )}
           </button>
         </div>

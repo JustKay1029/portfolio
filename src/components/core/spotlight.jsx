@@ -73,10 +73,10 @@ export function Spotlight({
 export function SpotlightBorder({ children, className = '', spotlightClassName = '' }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-b from-[#3a31d8]/30 via-slate-700/20 to-transparent transition-all duration-300 hover:from-[#3a31d8]/60 ${className}`}
+      className={`relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-b from-zinc-700/30 via-zinc-800/20 to-transparent transition-all duration-300 hover:from-zinc-400/40 ${className}`}
     >
       <Spotlight
-        className={`from-[#3a31d8] via-[#0600c2] to-cyan-400 blur-2xl opacity-60 ${spotlightClassName}`}
+        className={`from-white/25 via-zinc-300/15 to-transparent blur-2xl opacity-60 dark:from-white/20 dark:via-zinc-400/10 dark:to-transparent ${spotlightClassName}`}
         size={240}
       />
       <div className="relative h-full w-full rounded-[calc(1rem-1px)] bg-[var(--bg-surface)] backdrop-blur-sm transition-colors">

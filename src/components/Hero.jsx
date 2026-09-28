@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowDown, Code2, FolderGit2, Users, Star, Sparkles, ExternalLink } from 'lucide-react';
+import { ArrowDown, Code2, FolderGit2, Sparkles, ExternalLink } from 'lucide-react';
 import { AeroShards } from './backgrounds/AeroShards';
 import { AnimatedNumber } from './core/animated-number';
 import { fetchLiveGitHubProfile, DEFAULT_PROFILE } from '../services/github';
-import { GithubIcon } from './Icons';
+import { GithubIcon, LinkedinIcon } from './Icons';
 
 export function Hero() {
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
@@ -15,90 +15,107 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
-      {/* Dynamic Aero Shards Canvas Backdrop */}
-      <AeroShards className="opacity-90 dark:opacity-100" />
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
+      {/* Sleek Monochromatic Aero Shards Canvas */}
+      <AeroShards className="opacity-70 dark:opacity-85" />
 
       {/* Content Container */}
       <div className="relative z-10 max-w-4xl mx-auto text-center space-y-7">
-        {/* Avatar with Glow Ring */}
+        {/* Avatar with Sleek Subtle Ring */}
         <div className="inline-block relative group">
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#3a31d8] via-[#0600c2] to-cyan-400 opacity-60 blur-md group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-b from-white/20 via-zinc-400/10 to-transparent blur-sm group-hover:from-white/40 transition-colors duration-500" />
           <img
             src={profile.avatar_url}
             alt={profile.name}
-            className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[var(--border-subtle)] object-cover shadow-2xl"
+            className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-zinc-300 dark:border-zinc-700/80 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
           />
-          <div className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-[var(--bg-primary)]" title="Available for projects & collaboration" />
+          <div
+            className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[var(--bg-primary)] shadow-sm"
+            title="Available for projects & collaboration"
+          />
         </div>
 
-        {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#3a31d8]/30 bg-[#3a31d8]/10 text-xs font-medium text-[#3a31d8] dark:text-[#ebe9fc] backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-[#3a31d8]" />
-          <span>Building AI systems, ML pipelines & open source tools</span>
+        {/* Sleek Monochrome Status Badge */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-300/80 bg-zinc-100/90 text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-300 text-xs font-medium backdrop-blur-md shadow-xs">
+          <Sparkles className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
+          <span>Building AI systems, ML pipelines & developer tooling</span>
         </div>
 
         {/* Main Headline */}
         <div className="space-y-3">
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-[var(--text-main)]">
             Hi, I'm{' '}
-            <span className="bg-gradient-to-r from-[#3a31d8] via-[#5c54f5] to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-500 dark:from-white dark:via-zinc-200 dark:to-zinc-400 bg-clip-text text-transparent">
               {profile.name}
             </span>
           </h1>
           <p className="text-base sm:text-lg text-[var(--text-muted)] max-w-2xl mx-auto leading-relaxed">
-            Software engineer focusing on Machine Learning, transformer architectures, and generative AI systems. Building practical projects from scratch to production.
+            Software engineer focused on Machine Learning architectures, transformer systems, and intelligent tooling.
           </p>
         </div>
 
-        {/* Live GitHub Stats Row with Motion Primitives AnimatedNumber */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-lg mx-auto py-2">
-          <div className="p-3 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-sm backdrop-blur-md">
+        {/* Stats Row: Public Repos, Core Stack, LinkedIn Network */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-5 max-w-lg mx-auto py-2">
+          {/* Public Repos */}
+          <a
+            href={profile.html_url}
+            target="_blank"
+            rel="noreferrer"
+            className="p-3.5 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-all shadow-xs backdrop-blur-md group"
+          >
             <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--text-muted)] mb-1">
-              <FolderGit2 className="w-3.5 h-3.5 text-[#3a31d8]" />
+              <FolderGit2 className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
               <span>Public Repos</span>
             </div>
             <div className="text-2xl sm:text-3xl font-black font-mono text-[var(--text-main)]">
               <AnimatedNumber value={profile.public_repos || 29} />
             </div>
-          </div>
+          </a>
 
-          <div className="p-3 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-sm backdrop-blur-md">
+          {/* Core Stack */}
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-xs backdrop-blur-md">
             <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--text-muted)] mb-1">
-              <Code2 className="w-3.5 h-3.5 text-[#0600c2]" />
+              <Code2 className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
               <span>Core Stack</span>
             </div>
             <div className="text-xl sm:text-2xl font-bold font-mono text-[var(--text-main)] mt-1">
-              Python/TS
+              Python / TS
             </div>
           </div>
 
-          <div className="p-3 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-sm backdrop-blur-md">
+          {/* LinkedIn Network (Requested by user) */}
+          <a
+            href={profile.linkedin_url || "https://www.linkedin.com"}
+            target="_blank"
+            rel="noreferrer"
+            className="p-3.5 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-all shadow-xs backdrop-blur-md group"
+            title="View LinkedIn Profile"
+          >
             <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--text-muted)] mb-1">
-              <Users className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Network</span>
+              <LinkedinIcon className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400 group-hover:text-[var(--text-main)] transition-colors" />
+              <span>LinkedIn</span>
             </div>
             <div className="text-2xl sm:text-3xl font-black font-mono text-[var(--text-main)]">
-              <AnimatedNumber value={profile.followers || 2} />
+              {profile.linkedin_network || "500+"}
             </div>
-          </div>
+          </a>
         </div>
 
         {/* CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-[#3a31d8] hover:bg-[#0600c2] text-[#ebe9fc] shadow-lg shadow-[#3a31d8]/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>Explore Real Projects</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
           <a
-            href="https://github.com/JustKay1029"
+            href={profile.html_url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-main)] hover:border-[#3a31d8]/50 shadow-sm transition-all hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm border border-zinc-300 dark:border-zinc-800 bg-[var(--bg-surface)] text-[var(--text-main)] hover:border-zinc-500 dark:hover:border-zinc-600 shadow-xs transition-all hover:scale-[1.02]"
           >
             <GithubIcon className="w-4 h-4" />
             <span>GitHub Profile</span>

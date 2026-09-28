@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dock, DockIcon } from './core/dock';
-import { Home, User, FolderGit2, Sun, Moon, MessageSquarePlus } from 'lucide-react';
+import { Home, User, FolderGit2, Sun, Moon } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { useTheme } from '../context/ThemeContext';
 
@@ -10,7 +10,7 @@ export function FloatingDock() {
   return (
     <div className="fixed bottom-6 left-0 right-0 z-40 pointer-events-none flex justify-center px-4">
       <div className="pointer-events-auto">
-        <Dock className="shadow-2xl shadow-black/30">
+        <Dock className="shadow-xl shadow-black/20 border-zinc-300/80 dark:border-zinc-800/80">
           <DockIcon
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             title="Home"
@@ -59,9 +59,9 @@ export function FloatingDock() {
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
           >
             {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-amber-400" />
+              <Sun className="w-5 h-5 text-zinc-300" />
             ) : (
-              <Moon className="w-5 h-5 text-[#3a31d8]" />
+              <Moon className="w-5 h-5 text-zinc-700" />
             )}
           </DockIcon>
         </Dock>

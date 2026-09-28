@@ -68,10 +68,10 @@ export function NotePopover() {
   return (
     <MorphingPopover open={isOpen} onOpenChange={setIsOpen}>
       <MorphingPopoverTrigger
-        className="flex h-10 items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] px-3 text-xs sm:text-sm font-medium text-[var(--text-main)] shadow-sm hover:border-[#3a31d8]/50 hover:text-[#3a31d8] transition-colors"
+        className="flex h-9 items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] px-3 text-xs font-medium text-[var(--text-main)] shadow-xs hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
         title="Leave a quick note"
       >
-        <MessageSquarePlus className="w-4 h-4 text-[#3a31d8]" />
+        <MessageSquarePlus className="w-3.5 h-3.5 text-[var(--text-main)]" />
         <motion.span layoutId={`popover-label-${uniqueId}`}>
           Leave a Note
         </motion.span>
@@ -80,8 +80,8 @@ export function NotePopover() {
       <MorphingPopoverContent className="w-[320px] sm:w-[380px]">
         <div className="p-4 sm:p-5">
           <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
-            <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#3a31d8]">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[var(--text-main)]">
+              <Sparkles className="w-3.5 h-3.5 text-zinc-500" />
               <span>Connect with Kavya</span>
             </div>
             <button
@@ -96,7 +96,7 @@ export function NotePopover() {
 
           {status === 'sent' ? (
             <div className="py-8 text-center space-y-2">
-              <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 text-[var(--text-main)] mx-auto flex items-center justify-center">
                 <Check className="w-5 h-5" />
               </div>
               <p className="text-sm font-medium text-[var(--text-main)]">Note Sent!</p>
@@ -112,7 +112,7 @@ export function NotePopover() {
                   placeholder="Your email (optional)"
                   value={senderEmail}
                   onChange={(e) => setSenderEmail(e.target.value)}
-                  className="w-full rounded-lg bg-[var(--bg-primary)] border border-[var(--border-subtle)] px-3 py-2 text-xs text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[#3a31d8]"
+                  className="w-full rounded-lg bg-[var(--bg-primary)] border border-[var(--border-subtle)] px-3 py-2 text-xs text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600"
                 />
               </div>
 
@@ -123,7 +123,7 @@ export function NotePopover() {
                   placeholder="Write your note, feedback, or hello..."
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  className="w-full resize-none rounded-lg bg-[var(--bg-primary)] border border-[var(--border-subtle)] px-3 py-2 text-xs sm:text-sm text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[#3a31d8]"
+                  className="w-full resize-none rounded-lg bg-[var(--bg-primary)] border border-[var(--border-subtle)] px-3 py-2 text-xs sm:text-sm text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600"
                 />
               </div>
 
@@ -134,7 +134,7 @@ export function NotePopover() {
                 <button
                   type="submit"
                   disabled={status === 'sending' || !note.trim()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-[#3a31d8] hover:bg-[#0600c2] text-[#ebe9fc] shadow-sm transition-all disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 shadow-xs transition-all disabled:opacity-50"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{status === 'sending' ? 'Sending...' : 'Send Note'}</span>

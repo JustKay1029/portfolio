@@ -50,7 +50,7 @@ export function AnimatedBackground({
             {isActive && (
               <motion.div
                 layoutId="animated-background-indicator"
-                className={`absolute inset-0 rounded-xl bg-[#3a31d8]/15 border border-[#3a31d8]/40 dark:bg-[#3a31d8]/20 dark:border-[#3a31d8]/50 ${className}`}
+                className={`absolute inset-0 rounded-xl bg-zinc-200/90 border border-zinc-300/80 dark:bg-zinc-800/90 dark:border-zinc-700/80 shadow-sm ${className}`}
                 transition={transition}
                 initial={false}
               />

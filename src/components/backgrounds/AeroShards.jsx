@@ -34,10 +34,10 @@ export function AeroShards({ className = '' }) {
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
 
-    // Generate polygonal shard particles
-    const shardCount = 28;
+    // Generate sleek monochromatic polygonal shard particles
+    const shardCount = 26;
     const shards = Array.from({ length: shardCount }, (_, i) => {
-      const size = Math.random() * 80 + 40;
+      const size = Math.random() * 70 + 35;
       return {
         x: Math.random() * width,
         y: Math.random() * height,
@@ -48,34 +48,33 @@ export function AeroShards({ className = '' }) {
           { x: size * 0.2, y: size * 0.6 },
           { x: -size * 0.5, y: size * 0.4 },
         ],
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
         angle: Math.random() * Math.PI * 2,
-        vRot: (Math.random() - 0.5) * 0.004,
-        alpha: Math.random() * 0.25 + 0.08,
-        colorType: i % 3, // 0: electric violet (#3a31d8), 1: midnight (#020024), 2: indigo (#0600c2)
+        vRot: (Math.random() - 0.5) * 0.003,
+        alpha: Math.random() * 0.12 + 0.04,
       };
     });
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Ambient radial center glow
+      // Subtle ambient silver-white radial center light
       const radialGlow = ctx.createRadialGradient(
         width / 2,
-        height * 0.4,
-        50,
+        height * 0.35,
+        20,
         width / 2,
-        height * 0.4,
-        width * 0.6
+        height * 0.35,
+        width * 0.55
       );
-      radialGlow.addColorStop(0, 'rgba(58, 49, 216, 0.18)');
-      radialGlow.addColorStop(0.5, 'rgba(6, 0, 194, 0.08)');
-      radialGlow.addColorStop(1, 'rgba(1, 1, 4, 0)');
+      radialGlow.addColorStop(0, 'rgba(255, 255, 255, 0.06)');
+      radialGlow.addColorStop(0.5, 'rgba(255, 255, 255, 0.02)');
+      radialGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = radialGlow;
       ctx.fillRect(0, 0, width, height);
 
-      // Render floating shards
+      // Render floating sleek monochrome shards
       shards.forEach((shard) => {
         shard.x += shard.vx;
         shard.y += shard.vy;
@@ -92,10 +91,10 @@ export function AeroShards({ className = '' }) {
           const dx = mouse.x - shard.x;
           const dy = mouse.y - shard.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 180) {
-            const force = (180 - dist) / 180;
-            shard.x -= (dx / dist) * force * 1.5;
-            shard.y -= (dy / dist) * force * 1.5;
+          if (dist < 160) {
+            const force = (160 - dist) / 160;
+            shard.x -= (dx / dist) * force * 1.2;
+            shard.y -= (dy / dist) * force * 1.2;
           }
         }
 
@@ -111,30 +110,22 @@ export function AeroShards({ className = '' }) {
         });
         ctx.closePath();
 
-        // Shard fill gradient
+        // Sleek frosted translucent monochrome gradient
         const shardGrad = ctx.createLinearGradient(
           -shard.size / 2,
           -shard.size / 2,
           shard.size / 2,
           shard.size / 2
         );
-        if (shard.colorType === 0) {
-          shardGrad.addColorStop(0, `rgba(58, 49, 216, ${shard.alpha})`);
-          shardGrad.addColorStop(1, `rgba(6, 0, 194, ${shard.alpha * 0.4})`);
-        } else if (shard.colorType === 1) {
-          shardGrad.addColorStop(0, `rgba(6, 0, 194, ${shard.alpha * 1.2})`);
-          shardGrad.addColorStop(1, `rgba(2, 0, 36, ${shard.alpha * 0.3})`);
-        } else {
-          shardGrad.addColorStop(0, `rgba(235, 233, 252, ${shard.alpha * 0.4})`);
-          shardGrad.addColorStop(1, `rgba(58, 49, 216, ${shard.alpha * 0.2})`);
-        }
+        shardGrad.addColorStop(0, `rgba(255, 255, 255, ${shard.alpha})`);
+        shardGrad.addColorStop(1, `rgba(160, 160, 175, ${shard.alpha * 0.3})`);
 
         ctx.fillStyle = shardGrad;
         ctx.fill();
 
-        // Shard edge stroke
-        ctx.strokeStyle = `rgba(58, 49, 216, ${shard.alpha * 0.9})`;
-        ctx.lineWidth = 1;
+        // Hairline silver edge stroke
+        ctx.strokeStyle = `rgba(255, 255, 255, ${shard.alpha * 1.4})`;
+        ctx.lineWidth = 0.75;
         ctx.stroke();
 
         ctx.restore();

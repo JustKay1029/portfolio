@@ -9,6 +9,8 @@ export const DEFAULT_PROFILE = {
   following: 2,
   avatar_url: "https://avatars.githubusercontent.com/u/225905251?v=4",
   html_url: "https://github.com/JustKay1029",
+  linkedin_url: "https://www.linkedin.com",
+  linkedin_network: "500+",
   location: "India",
   blog: "https://github.com/JustKay1029",
 };
