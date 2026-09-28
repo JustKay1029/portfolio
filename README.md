@@ -26,7 +26,7 @@ Personal portfolio website for **Kavya Gupta (`JustKay1029`)**, built with **Rea
   - `MorphingPopover`: Spring-animated popover to quickly send a note or connect (with EmailJS support & mailto fallback).
 - 📡 **100% Authentic Live Data:**
   - Fetches live profile and metrics directly from the GitHub API (`api.github.com/users/JustKay1029`).
-  - Showcases real work: `neetcode-gpt`, `pr-pulse`, `CORUS`, `gurgaon_rent_price_predictor`, `earguard`, and `Toolkit-for-communications`.
+  - Showcases real work: `neetcode-gpt`, `pr-pulse`, `CORUS`, `gurgaon_rent_price_predictor`, `earguard`, and `opensre`.
   - Zero fabricated metrics or corporate filler.
 
 ---

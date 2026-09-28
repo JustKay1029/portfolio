@@ -76,16 +76,16 @@ export const CURATED_PROJECTS = [
     highlight: "Real-Time Decibel Threshold Monitoring",
   },
   {
-    name: "Toolkit-for-communications",
-    title: "Communications Toolkit",
-    category: "Engineering Capstone",
-    description: "First-year engineering college capstone project built to streamline protocol simulations, network communication experiments, and interactive demonstrations.",
-    tags: ["HTML5", "JavaScript", "CSS3", "Networking"],
+    name: "opensre",
+    title: "OpenSRE — AI SRE Agents",
+    category: "AI & Developer Tools",
+    description: "Autonomous AI site reliability engineering agent toolkit designed to assist with real-time log diagnosis, incident triaging, and system observability.",
+    tags: ["Python", "AI Agents", "SRE", "Observability"],
     stars: 0,
     forks: 0,
-    language: "JavaScript",
-    html_url: "https://github.com/JustKay1029/Toolkit-for-communications",
-    highlight: "College First-Year Capstone Project",
+    language: "Python",
+    html_url: "https://github.com/JustKay1029/opensre",
+    highlight: "Autonomous Incident Diagnosis & Agent Toolkit",
   }
 ];
 

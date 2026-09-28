@@ -121,19 +121,19 @@ export function About() {
               <li className="flex items-start gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3a31d8] mt-2 flex-shrink-0" />
                 <span>
-                  <strong className="text-[var(--text-main)]">Capstone Project:</strong> Building the <code className="text-[#3a31d8] font-mono">Toolkit-for-communications</code> in my first year of college.
+                  <strong className="text-[var(--text-main)]">Autonomous PR Reviewing:</strong> Developing <code className="text-[#3a31d8] font-mono">pr-pulse</code> to automate pull request diff analysis and maintainer summaries with LLMs.
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3a31d8] mt-2 flex-shrink-0" />
                 <span>
-                  <strong className="text-[var(--text-main)]">AI Tool Routing:</strong> Developing <code className="text-[#3a31d8] font-mono">CORUS</code> to classify work types and automatically route to the best suited AI models.
+                  <strong className="text-[var(--text-main)]">AI Tool Routing:</strong> Developing <code className="text-[#3a31d8] font-mono">CORUS</code> to classify task intent and dynamically route workloads to optimal specialized models.
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3a31d8] mt-2 flex-shrink-0" />
                 <span>
-                  <strong className="text-[var(--text-main)]">Hackathons & Open Source:</strong> Participating in hackathons like SIH 2026 and EarGuard audio signal monitoring.
+                  <strong className="text-[var(--text-main)]">Deep Learning from Scratch:</strong> Implementing neural architectures (<code className="text-[#3a31d8] font-mono">neetcode-gpt</code>) and signal processing models (<code className="text-[#3a31d8] font-mono">earguard</code>).
                 </span>
               </li>
             </ul>
