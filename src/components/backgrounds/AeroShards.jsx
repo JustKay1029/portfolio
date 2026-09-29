@@ -11,7 +11,17 @@ export function AeroShards({ className = '' }) {
 
     let animationFrameId;
     let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.offsetHeight || 600);
+    let height = (canvas.height = canvas.parentElement?.offsetHeight || 700);
+
+    // Track theme dynamically
+    let isDark = document.documentElement.classList.contains('dark');
+    const observer = new MutationObserver(() => {
+      isDark = document.documentElement.classList.contains('dark');
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
 
     const handleResize = () => {
       if (!canvas.parentElement) return;
@@ -20,89 +30,132 @@ export function AeroShards({ className = '' }) {
     };
     window.addEventListener('resize', handleResize);
 
-    // Mouse tracking for subtle shard interaction
-    let mouse = { x: width / 2, y: height / 2, active: false };
+    // Mouse tracking for orbital plane tilt & parallax
+    let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-      mouse.active = true;
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
     };
-    const handleMouseLeave = () => {
-      mouse.active = false;
-    };
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('mousemove', handleMouseMove);
 
-    // Generate sleek monochromatic polygonal shard particles
-    const shardCount = 26;
+    // Orbital configuration
+    const shardCount = 30;
     const shards = Array.from({ length: shardCount }, (_, i) => {
-      const size = Math.random() * 70 + 35;
+      const radiusX = Math.random() * (width * 0.42 - 130) + 130;
+      const eccentricity = 0.38 + Math.random() * 0.12; // elliptical flattening for 3D tilt
+      const radiusY = radiusX * eccentricity;
+      const baseSize = Math.random() * 32 + 18;
+
+      // Unique polygonal facet for each crystal
+      const numPoints = Math.floor(Math.random() * 3) + 4; // 4 to 6 vertices
+      const points = [];
+      for (let p = 0; p < numPoints; p++) {
+        const ang = (p / numPoints) * Math.PI * 2;
+        const rad = baseSize * (0.6 + Math.random() * 0.5);
+        points.push({ x: Math.cos(ang) * rad, y: Math.sin(ang) * rad });
+      }
+
       return {
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size,
-        points: [
-          { x: 0, y: -size * 0.6 },
-          { x: size * 0.5, y: size * 0.2 },
-          { x: size * 0.2, y: size * 0.6 },
-          { x: -size * 0.5, y: size * 0.4 },
-        ],
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        angle: Math.random() * Math.PI * 2,
-        vRot: (Math.random() - 0.5) * 0.003,
-        alpha: Math.random() * 0.12 + 0.04,
+        radiusX,
+        radiusY,
+        theta: (i / shardCount) * Math.PI * 2 + Math.random() * 0.4,
+        speed: (Math.random() * 0.003 + 0.0025) * (i % 2 === 0 ? 1 : 1.15),
+        tiltAngle: (Math.random() - 0.5) * 0.35, // slight orbital inclination variance
+        selfAngle: Math.random() * Math.PI * 2,
+        selfRotSpeed: (Math.random() - 0.5) * 0.012,
+        baseSize,
+        points,
+        baseAlpha: Math.random() * 0.14 + 0.08,
       };
     });
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle ambient silver-white radial center light
+      // Smooth mouse lerp for orbital tilt
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+      const centerX = width / 2;
+      const centerY = height * 0.44;
+
+      // Parallax offsets based on cursor
+      const mouseOffsetFactorX = (mouse.x - centerX) / (width / 2);
+      const mouseOffsetFactorY = (mouse.y - centerY) / (height / 2);
+
+      // Ambient subtle center glow
       const radialGlow = ctx.createRadialGradient(
-        width / 2,
-        height * 0.35,
-        20,
-        width / 2,
-        height * 0.35,
-        width * 0.55
+        centerX,
+        centerY,
+        30,
+        centerX,
+        centerY,
+        width * 0.5
       );
-      radialGlow.addColorStop(0, 'rgba(255, 255, 255, 0.06)');
-      radialGlow.addColorStop(0.5, 'rgba(255, 255, 255, 0.02)');
-      radialGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      if (isDark) {
+        radialGlow.addColorStop(0, 'rgba(255, 255, 255, 0.045)');
+        radialGlow.addColorStop(0.6, 'rgba(255, 255, 255, 0.01)');
+        radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      } else {
+        radialGlow.addColorStop(0, 'rgba(0, 0, 0, 0.035)');
+        radialGlow.addColorStop(0.6, 'rgba(0, 0, 0, 0.008)');
+        radialGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      }
       ctx.fillStyle = radialGlow;
       ctx.fillRect(0, 0, width, height);
 
-      // Render floating sleek monochrome shards
-      shards.forEach((shard) => {
-        shard.x += shard.vx;
-        shard.y += shard.vy;
-        shard.angle += shard.vRot;
+      // Calculate 3D orbital positions for each shard
+      const computedShards = shards.map((shard) => {
+        shard.theta += shard.speed;
+        shard.selfAngle += shard.selfRotSpeed;
 
-        // Wrap around boundaries
-        if (shard.x < -shard.size) shard.x = width + shard.size;
-        if (shard.x > width + shard.size) shard.x = -shard.size;
-        if (shard.y < -shard.size) shard.y = height + shard.size;
-        if (shard.y > height + shard.size) shard.y = -shard.size;
+        // Position on inclined ellipse
+        const cosT = Math.cos(shard.theta);
+        const sinT = Math.sin(shard.theta);
 
-        // Subtle reaction to mouse
-        if (mouse.active) {
-          const dx = mouse.x - shard.x;
-          const dy = mouse.y - shard.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 160) {
-            const force = (160 - dist) / 160;
-            shard.x -= (dx / dist) * force * 1.2;
-            shard.y -= (dy / dist) * force * 1.2;
-          }
-        }
+        // Tilt with mouse parallax
+        const combinedTilt = shard.tiltAngle + mouseOffsetFactorX * 0.12;
+        const rx = shard.radiusX * (1 + mouseOffsetFactorY * 0.08);
+        const ry = shard.radiusY * (1 - mouseOffsetFactorY * 0.08);
 
+        // Orbital projection
+        const localX = cosT * rx;
+        const localY = sinT * ry;
+
+        // Apply orbital rotation/tilt
+        const rotX = localX * Math.cos(combinedTilt) - localY * Math.sin(combinedTilt);
+        const rotY = localX * Math.sin(combinedTilt) + localY * Math.cos(combinedTilt);
+
+        const x = centerX + rotX;
+        const y = centerY + rotY;
+
+        // Pseudo-3D depth factor: sinT indicates whether the shard is in front (>0) or behind (<0)
+        // Depth ranges roughly from 0.7 (deep back) to 1.35 (close foreground)
+        const depth = 1 + sinT * 0.35;
+        const alpha = Math.max(0.04, Math.min(0.35, shard.baseAlpha * (0.8 + sinT * 0.4)));
+
+        return {
+          shard,
+          x,
+          y,
+          depth,
+          alpha,
+          sinT,
+        };
+      });
+
+      // Sort by depth (draw background shards first, foreground shards last)
+      computedShards.sort((a, b) => a.sinT - b.sinT);
+
+      // Render each orbital crystal shard
+      computedShards.forEach(({ shard, x, y, depth, alpha }) => {
         ctx.save();
-        ctx.translate(shard.x, shard.y);
-        ctx.rotate(shard.angle);
+        ctx.translate(x, y);
+        ctx.scale(depth, depth);
+        ctx.rotate(shard.selfAngle);
 
-        // Path of the polygonal shard
+        // Path of crystal polygon
         ctx.beginPath();
         shard.points.forEach((pt, pIdx) => {
           if (pIdx === 0) ctx.moveTo(pt.x, pt.y);
@@ -110,23 +163,37 @@ export function AeroShards({ className = '' }) {
         });
         ctx.closePath();
 
-        // Sleek frosted translucent monochrome gradient
-        const shardGrad = ctx.createLinearGradient(
-          -shard.size / 2,
-          -shard.size / 2,
-          shard.size / 2,
-          shard.size / 2
+        // Faceted crystal gradient depending on theme
+        const grad = ctx.createLinearGradient(
+          -shard.baseSize,
+          -shard.baseSize,
+          shard.baseSize,
+          shard.baseSize
         );
-        shardGrad.addColorStop(0, `rgba(255, 255, 255, ${shard.alpha})`);
-        shardGrad.addColorStop(1, `rgba(160, 160, 175, ${shard.alpha * 0.3})`);
 
-        ctx.fillStyle = shardGrad;
-        ctx.fill();
+        if (isDark) {
+          // Dark Mode: Luminous silver and frosted crystal
+          grad.addColorStop(0, `rgba(255, 255, 255, ${alpha * 1.1})`);
+          grad.addColorStop(0.5, `rgba(180, 185, 200, ${alpha * 0.45})`);
+          grad.addColorStop(1, `rgba(120, 125, 140, ${alpha * 0.15})`);
+          ctx.fillStyle = grad;
+          ctx.fill();
 
-        // Hairline silver edge stroke
-        ctx.strokeStyle = `rgba(255, 255, 255, ${shard.alpha * 1.4})`;
-        ctx.lineWidth = 0.75;
-        ctx.stroke();
+          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 1.8})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        } else {
+          // Light Mode: Translucent smoky charcoal, graphite, and slate crystal
+          grad.addColorStop(0, `rgba(20, 20, 25, ${alpha * 1.3})`);
+          grad.addColorStop(0.5, `rgba(50, 50, 60, ${alpha * 0.7})`);
+          grad.addColorStop(1, `rgba(100, 100, 110, ${alpha * 0.25})`);
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          ctx.strokeStyle = `rgba(20, 20, 25, ${alpha * 2.2})`;
+          ctx.lineWidth = 0.9;
+          ctx.stroke();
+        }
 
         ctx.restore();
       });
@@ -138,8 +205,8 @@ export function AeroShards({ className = '' }) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('mousemove', handleMouseMove);
+      observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -147,7 +214,7 @@ export function AeroShards({ className = '' }) {
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 pointer-events-auto w-full h-full ${className}`}
+      className={`absolute inset-0 pointer-events-none w-full h-full ${className}`}
     />
   );
 }

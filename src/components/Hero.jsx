@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowDown, Code2, FolderGit2, Sparkles, ExternalLink } from 'lucide-react';
 import { AeroShards } from './backgrounds/AeroShards';
 import { AnimatedNumber } from './core/animated-number';
+import { LiveActivity } from './LiveActivity';
 import { fetchLiveGitHubProfile, DEFAULT_PROFILE } from '../services/github';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
@@ -15,19 +16,19 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
-      {/* Sleek Monochromatic Aero Shards Canvas */}
-      <AeroShards className="opacity-70 dark:opacity-85" />
+    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
+      {/* Dynamic 3D Orbital Crystal Engine Canvas */}
+      <AeroShards className="opacity-80 dark:opacity-90" />
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-7">
+      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
         {/* Avatar with Sleek Subtle Ring */}
         <div className="inline-block relative group">
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-b from-white/20 via-zinc-400/10 to-transparent blur-sm group-hover:from-white/40 transition-colors duration-500" />
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-b from-zinc-300 to-transparent dark:from-zinc-700/60 dark:to-transparent blur-sm group-hover:scale-105 transition-all duration-500" />
           <img
             src={profile.avatar_url}
             alt={profile.name}
-            className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-zinc-300 dark:border-zinc-700/80 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+            className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-zinc-300 dark:border-zinc-700/80 object-cover shadow-xl transition-transform duration-300 group-hover:scale-[1.02]"
           />
           <div
             className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[var(--bg-primary)] shadow-sm"
@@ -35,22 +36,21 @@ export function Hero() {
           />
         </div>
 
-        {/* Sleek Monochrome Status Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-300/80 bg-zinc-100/90 text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-300 text-xs font-medium backdrop-blur-md shadow-xs">
-          <Sparkles className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
-          <span>Building AI systems, ML pipelines & developer tooling</span>
+        {/* Live GitHub Commit Pulse Badge */}
+        <div>
+          <LiveActivity />
         </div>
 
-        {/* Main Headline */}
+        {/* Main Headline with 100% Solid Visible Typography in Both Themes */}
         <div className="space-y-3">
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-[var(--text-main)]">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-zinc-950 dark:text-white">
             Hi, I'm{' '}
-            <span className="bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-500 dark:from-white dark:via-zinc-200 dark:to-zinc-400 bg-clip-text text-transparent">
+            <span className="text-zinc-950 dark:text-white font-black underline decoration-zinc-300 dark:decoration-zinc-800 underline-offset-8">
               {profile.name}
             </span>
           </h1>
           <p className="text-base sm:text-lg text-[var(--text-muted)] max-w-2xl mx-auto leading-relaxed">
-            Software engineer focused on Machine Learning architectures, transformer systems, and intelligent tooling.
+            Software engineer focused on Machine Learning architectures, transformer systems, and intelligent developer tooling.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* LinkedIn Network (Requested by user) */}
+          {/* LinkedIn Network */}
           <a
             href={profile.linkedin_url || "https://www.linkedin.com"}
             target="_blank"

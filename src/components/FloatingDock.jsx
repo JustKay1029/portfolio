@@ -10,53 +10,49 @@ export function FloatingDock() {
   return (
     <div className="fixed bottom-6 left-0 right-0 z-40 pointer-events-none flex justify-center px-4">
       <div className="pointer-events-auto">
-        <Dock className="shadow-xl shadow-black/20 border-zinc-300/80 dark:border-zinc-800/80">
+        <Dock className="shadow-2xl shadow-black/25 border-zinc-300/80 dark:border-zinc-800/80">
           <DockIcon
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            title="Home"
+            title="Top / Home"
           >
             <Home className="w-5 h-5" />
           </DockIcon>
 
           <DockIcon
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-            title="About"
+            title="About Kavya"
           >
             <User className="w-5 h-5" />
           </DockIcon>
 
           <DockIcon
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-            title="Projects"
+            title="Projects Showcase"
           >
             <FolderGit2 className="w-5 h-5" />
           </DockIcon>
 
-          <a
+          <DockIcon
             href="https://github.com/JustKay1029"
             target="_blank"
             rel="noreferrer"
-            title="GitHub Profile"
+            title="GitHub (@JustKay1029)"
           >
-            <DockIcon>
-              <GithubIcon className="w-5 h-5" />
-            </DockIcon>
-          </a>
+            <GithubIcon className="w-5 h-5" />
+          </DockIcon>
 
-          <a
-            href="https://linkedin.com"
+          <DockIcon
+            href="https://www.linkedin.com"
             target="_blank"
             rel="noreferrer"
-            title="LinkedIn Profile"
+            title="LinkedIn Network"
           >
-            <DockIcon>
-              <LinkedinIcon className="w-5 h-5" />
-            </DockIcon>
-          </a>
+            <LinkedinIcon className="w-5 h-5" />
+          </DockIcon>
 
           <DockIcon
             onClick={toggleTheme}
-            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5 text-zinc-300" />
